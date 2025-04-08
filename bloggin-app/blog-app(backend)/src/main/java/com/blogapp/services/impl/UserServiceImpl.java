@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 		userRepo.delete(existingUser);
 
 	}
-	private User toUser(UserDto userDto) {
+	public User toUser(UserDto userDto) {
 //		User user=new User();
 //		user.setUserId(userDto.getUserId());
 //		user.setName(userDto.getName());
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-	private UserDto toUserDto(User user) {
+	public UserDto toUserDto(User user) {
 //		UserDto userDto=new UserDto();
 //		userDto.setUserId(user.getUserId());
 //		userDto.setEmail(user.getEmail());
