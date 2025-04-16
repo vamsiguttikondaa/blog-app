@@ -1,5 +1,6 @@
 package com.blogapp.exceptions;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,4 +29,11 @@ public class GlobalExceptionalHandler {
 		});
 		return new ResponseEntity<>(errormap, HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<Map<String, String>> handleIoException(IOException ex) {
+	    Map<String, String> errormap = new HashMap<>();
+	    errormap.put("error", "I/O error occurred: " + ex.getMessage());
+	    return new ResponseEntity<>(errormap, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 }

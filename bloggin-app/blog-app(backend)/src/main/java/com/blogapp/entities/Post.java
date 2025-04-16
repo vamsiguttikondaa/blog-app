@@ -30,6 +30,7 @@ public class Post {
     private String content;
     @Column(name="post_title",length=100,nullable=false)
     private String title;
+    @Column(name="image_url")
     private String imageName;
     private LocalDateTime  addedDate;
     
