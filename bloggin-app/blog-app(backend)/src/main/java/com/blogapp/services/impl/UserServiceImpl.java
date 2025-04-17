@@ -2,15 +2,19 @@ package com.blogapp.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.blogapp.entities.Role;
 import com.blogapp.entities.User;
 import com.blogapp.exceptions.ResourceNotFoundException;
 import com.blogapp.payloads.UserDto;
+import com.blogapp.repositories.RoleRepository;
 import com.blogapp.repositories.UserRepository;
 import com.blogapp.services.UserService;
 
@@ -22,11 +26,26 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+@Autowired
+private RoleRepository roleRepository;
 	@Override
 	public UserDto createUser(UserDto user) {
 		
-		User u = userRepo.save(toUser(user));
-		return toUserDto(u);
+		User u = new User();
+		u.setAbout(user.getAbout());
+		u.setEmail(user.getEmail());
+		u.setName(user.getName());
+		u.setPassword(passwordEncoder.encode(user.getPassword()));
+		// Fetching default role
+		Role userRole = roleRepository.findById(2)
+				.orElseThrow(() -> new RuntimeException("User role not found"));
+		u.setRoles(Set.of(userRole));
+		
+				User savedUser = userRepo.save(u); // Add this if not already saving
+				return toUserDto(savedUser);
 	}
 
 	@Override

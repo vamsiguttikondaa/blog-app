@@ -1,0 +1,43 @@
+        +-------------------------+
+        | 1. Login Request (POST)|
+        |   /api/auth/login      |
+        |   { username, password}|
+        +-----------+------------+
+                    |
+                    v
+        +---------------------------+
+        | 2. AuthenticationManager  |
+        |    uses UserDetailsService|
+        |    and PasswordEncoder    |
+        +-----------+---------------+
+                    |
+        +-----------v---------------+
+        | 3. Generate JWT Token     |
+        |   if authentication OK    |
+        +-----------+---------------+
+                    |
+                    v
+        +------------------------------+
+        | 4. Return JWT to Frontend    |
+        |   { token: "eyJhbGci..." }   |
+        +------------------------------+
+                    |
+        +-----------v--------------+
+        | 5. Client stores token   |
+        | (LocalStorage / Header) |
+        +-----------+--------------+
+                    |
+        +-----------v--------------+
+        | 6. Future API Requests   |
+        | Authorization: Bearer <token> |
+        +-----------+--------------+
+                    |
+        +-----------v--------------+
+        | 7. JwtAuthenticationFilter |
+        | Validates token, sets user |
+        +-----------+--------------+
+                    |
+        +-----------v--------------+
+        | 8. Controller Access     |
+        | If authenticated, allow |
+        +-------------------------+
