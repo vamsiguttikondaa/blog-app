@@ -1,6 +1,7 @@
 package com.blogapp.entities;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.jar.Attributes.Name;
 
@@ -43,7 +44,7 @@ public class User {
 	    private String about;
 	    
 	    @OneToMany(mappedBy = "user",orphanRemoval = true,cascade = CascadeType.ALL)
-	    private Set<Post> posts;
+	    private Set<Post> posts;	
 	    
 	    @ManyToMany(fetch = FetchType.EAGER)
 	    @JoinTable(
@@ -51,6 +52,9 @@ public class User {
 	    	    joinColumns = @JoinColumn(name = "user_id"),
 	    	    inverseJoinColumns = @JoinColumn(name = "role_id")
 	    	)
-	    private Set<Role> roles;
+	    private Set<Role> roles=new HashSet<>();
+	    
+	    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	    private List<Comment> comments;
 
 }

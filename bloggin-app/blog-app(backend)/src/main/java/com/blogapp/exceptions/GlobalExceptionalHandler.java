@@ -35,5 +35,19 @@ public class GlobalExceptionalHandler {
 	    errormap.put("error", "I/O error occurred: " + ex.getMessage());
 	    return new ResponseEntity<>(errormap, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	@ExceptionHandler(ResourceAlreadyExistsException.class)
+	public ResponseEntity<Map<String, Object>> handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex) {
+	    Map<String, Object> errormap = new HashMap<>();
+	    errormap.put("error" ,ex.getMessage());
+	    errormap.put("status:",HttpStatus.CONFLICT.value() );
+	    return new ResponseEntity<>(errormap, HttpStatus.CONFLICT);
+	}
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<Map<String, Object>> handleBadCredentialsException(BadCredentialsException ex) {
+	    Map<String, Object> errormap = new HashMap<>();
+	    errormap.put("error" ,ex.getMessage());
+	    errormap.put("status:",HttpStatus.UNAUTHORIZED.value() );
+	    return new ResponseEntity<>(errormap, HttpStatus.UNAUTHORIZED);
+	}
 
 }

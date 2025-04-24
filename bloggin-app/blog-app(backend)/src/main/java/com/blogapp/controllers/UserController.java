@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blogapp.payloads.ApiResponse;
+import com.blogapp.payloads.RegisterDto;
 import com.blogapp.payloads.UserDto;
 import com.blogapp.services.UserService;
 
@@ -29,12 +30,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	//POST-create user
-	@PostMapping("/create")
-	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto){
-		UserDto createdUserDto=userService.createUser(userDto);
-		return new ResponseEntity<UserDto>(createdUserDto, HttpStatus.CREATED);
-	}
+	
+	
+	
+	
+
 	//PUT - update user
 	@PutMapping("/update/{userId}")
 	public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
@@ -42,17 +42,8 @@ public class UserController {
 	    return ResponseEntity.ok(updatedUser);
 	}
 
-	//DELETE -delete user
-	@DeleteMapping("/delete/{userId}")
-	public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long userId) {
-	    userService.deleteUser(userId);
-	    return new ResponseEntity<>(new ApiResponse("user successfully deleted",true), HttpStatus.OK);
-	}
-	@GetMapping("/getusers")
-	public ResponseEntity<List<UserDto>> getAllUuser(){
-		List<UserDto> userDtoList= userService.getAllUsers();
-		return new ResponseEntity<>(userDtoList,HttpStatus.OK);
-	}
+	
+	
 	@GetMapping("/getuser/{id}")
 	public ResponseEntity<UserDto> getUser(@PathVariable Long id){
 		UserDto userDto= userService.getUserById(id);

@@ -98,20 +98,7 @@ public class PostController {
 		return new ResponseEntity<>(new ApiResponse<PostResponse>(
 				"posts retrieved successfully", true, LocalDateTime.now(), pagePosts),HttpStatus.OK);
 	}
-	//get posts by category
-		@GetMapping("/getposts")
-		public ResponseEntity<ApiResponse<PostResponse>> getAllPosts(
-				@RequestParam(defaultValue = AppConstants.PAGE_NUMBER,required = false) int pageNumber,
-				@RequestParam (defaultValue = AppConstants.PAGE_SIZE,required = false) int pageSize,
-				@RequestParam(defaultValue =AppConstants.SORT_BY,required = false) String sortBy,
-				@RequestParam(defaultValue = AppConstants.SORT_DIR,required = false) String sortDir
-				){
-			Sort sort=sortDir.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():
-							Sort.by(sortBy).descending();
-			PostResponse pagePosts=postService.getPosts(pageNumber,pageSize,sort);
-			return new ResponseEntity<>(new ApiResponse<PostResponse>(
-					"posts retrieved successfully", true, LocalDateTime.now(), pagePosts),HttpStatus.OK);
-		}
+	
 	@PostMapping("/like/{postId}/incr")
 	public ResponseEntity<ApiResponse<Map<String, Object>>> likePost(@PathVariable Integer postId) {
 	    int updatedLikes = postService.incrementLike(postId);

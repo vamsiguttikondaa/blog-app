@@ -25,27 +25,11 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    // CREATE
-    @PostMapping("/create")
-    public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CategoryDto categoryDto) {
-        CategoryDto createdCategory = categoryService.createCategory(categoryDto);
-        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
-    }
+ 
 
-    // UPDATE
-    @PutMapping("update/{id}")
-    public ResponseEntity<CategoryDto> updateCategory(@Valid @RequestBody CategoryDto categoryDto,
-                                                      @PathVariable Integer id) {
-        CategoryDto updatedCategory = categoryService.updateCategory(id, categoryDto);
-        return ResponseEntity.ok(updatedCategory);
-    }
+   
 
-    // DELETE
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Integer id) {
-        categoryService.deleteCategory(id);
-        return ResponseEntity.ok("Category with ID " + id + " deleted successfully");
-    }
+
 
     // GET SINGLE
     @GetMapping("/getcategory/{id}")
